@@ -1,6 +1,15 @@
 package week05_class;
 
-public class classClass {
+/*
+접근할 수 없는 클래스 (접근제어자)
+- public : 없음 (class)
+- protected : 자식 클래스가 아닌 다른 패키지에 소속된 클래스
+- default : 다른 패키지에 소속된 클래스 (class)
+- private : 모든 외부 클래스
+ */
+
+
+public class classMain {
 
     public static void main(String[] args) {
 //        singletoneClass stc = new singletoneClass();
@@ -28,16 +37,14 @@ class singletonClass {
 
 class staticClass {
     static int count = 0;
-
     void countPlus() {
         count += 1;
     }
-
     static void globalPlus() {
         count += 1;
     }
-
     void countPrint() {
         System.out.println(count);
     }
 }
+
