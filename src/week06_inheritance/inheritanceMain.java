@@ -25,13 +25,25 @@ public class inheritanceMain {
             System.out.println("강제 타입 변환 불가능");
         }
 
+        airplaneFrame af = new airplaneFrame(10, "anonymous") {
+            @Override
+            void fly() {
+                System.out.println("[익명 추상 클래스] : fly");
+            }
+        };
+        af.fly();
     }
 }
 
 // 추상클래스
+// 목적 : 상속을 받아서 기능을 확장시키는 것 (부모의 유전자를 물려받는 것)
 // 새로운 실체 클래스를 만들기 위해 부모 클래스로만 사용됨
 // 실체 클래스들의 공통적인 특성을 추출해서 선언한 클래스로, 오로지 상속을 위해 사용됨 (실체 클래스처럼 객체 생성 불가능)
+// 하지만 내부 구현이 필요한 메소드를 구현했을 때, 익명 객체처럼 사용 가능함
+// 상속받는 클래스가 기능을 이용하거나 확장하기 위함
+// 단일 상속 (extends)
 // 규격의 역할
+
 abstract class airplaneFrame {
     int speed;
     String name;
