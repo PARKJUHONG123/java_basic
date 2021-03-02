@@ -111,7 +111,7 @@ public class hello {
     - 자바 컴파일러가 .java 파일을 컴파일하면 .class 파일이 생성되는데, 이렇게 생성된 바이트 코드 (클래스 파일)들을 엮어 Runtime Data Area 형태로 메모리에 적재하는 역할
 
 - Garbage Collector
-    - Heap 메모리 영역에 생성된 객체들 중에 주소를 잃어버려서 사용할 수 없는 객체를 탐색 후 제거하는 역할
+    - Heap 메모리 영역에 생성된 객체들 중에 주소를 잃어버려서 사용할 수 없는 객체를 탐색 후 제거하는 역할 (Thread)
     - Stop-the-world : GC 실행을 위해 JVM이 애플리케이션 실행을 멈춤
         - GC 실행 스레드 제외 모든 스레드들이 작업을 멈춤
         - GC 튜닝은 이 시간을 줄이는 것을 의미함
@@ -126,16 +126,20 @@ public class hello {
 
 - Runtime Data Area (Class Loader, Garbage Collector, Execution Engine 이 참조함)
     - Method Area
+    	- 프로그램이 처음 시작할 때 상수와 함께 데이터 영역에 생성되고 프로그램이 끝나고 메모리를 해제할 때 소멸됨
         - 클래스 맴버 변수, 메소드 정보, Type (Class, Interface) 정보, Constant Pool, static 변수, final 변수 등이 생성됨
         - Constant Pool은 모든 Symbolic Reference를 포함
     - Heap Area
-        - Young 영역 : 새롭게 생성한 객체가 위치
-            - Eden : 객체들이 최초로 생성되는 공간
-            - Survivor 0/1 : Eden에서 참조되는 객체들이 저장되는 공간
-        - Old 영역 : Young 영역에서 Reachable 상태를 유지해 살아남은 객체가 복사되는 영역
-        - Perm 영역 : 클래스와 메소드 정보와 같이 자바 언어 레벨에서는 거의 사용되지 않는 영역 (= Method Area)
+    	- 맴버 변수 (인스턴스 변수) : 클래스를 참조해서 생성된 인스턴스가 저장되어 있음
+	- 인스턴스가 생성될 때 힙에 생성되고, GC 가 메모리를 수거할 때 소멸됨
+	- 영역 구분
+		- Young 영역 : 새롭게 생성한 객체가 위치
+		    - Eden : 객체들이 최초로 생성되는 공간
+		    - Survivor 0/1 : Eden에서 참조되는 객체들이 저장되는 공간
+		- Old 영역 : Young 영역에서 Reachable 상태를 유지해 살아남은 객체가 복사되는 영역
+		- Perm 영역 : 클래스와 메소드 정보와 같이 자바 언어 레벨에서는 거의 사용되지 않는 영역 (= Method Area)
     - Stack Area
-        - 지역변수, 파라미터, 리턴 값, 연산에 사용되는 임시값 등을 저장하는 영역
+        - 지역변수 (함수 내부에서 선언 및 사용 : 함수가 호출될 때 생성되고 함수가 끝나면 소멸함) , 파라미터, 리턴 값, 연산에 사용되는 임시값 등을 저장하는 영역
         - 동적으로 객체를 생성하면 실제 객체는 Heap에 할당되고 해당 레퍼런스만 Stack에 저장됨
         - Stack은 쓰레드별로 독자적으로 가짐
         - Heap에 있는 오브젝트가 Stack에서 참조할 수 없는 경우 GC의 대상이 됨
