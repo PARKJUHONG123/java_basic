@@ -10,6 +10,30 @@
 - final 키워드
 - Object 클래스
 
+### super 키워드
+- super() 로 호출되는 생성자는 상위 클래스의 기본 생성자
+- 만약 상위 클래스의 기본생성자가 없는 경우 (즉 매개변수가 있는 생성자만 존재하는 경우), 하위 클래스는 명시적으로 상위 클래스의 생성자를 호출해야 함
+
+```
+    // VIP.java
+    public class VIP extends Customer {
+        public VIP(int customerID, String customerName) {
+            super(customerID, customerName);
+            //super(); // 오류 발생함 = 상위 클래스의 생성자가 기본 생성자가 아니기 때문
+        }
+    }
+    
+    // Customer.java
+    public class Customer {
+        private int customerID;
+        private String customerName;
+        public Customer(int customerID, String customerName) {
+            this.customerID = customerID;
+            this.customerName = customerName;
+        }
+    }
+```
+
 ### Object 클래스
     - 모든 클래스의 직/간접적 슈퍼클래스
     - java.lang 패키지에 존재
