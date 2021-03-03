@@ -5,10 +5,10 @@ public interface Searchable {
     
     default void setMute(boolean mute) { 
         if (mute) {
-            System.out.println("Searchable - 무음 처리");
+            System.out.println("[Searchable] : 무음 처리");
         }
         else {
-            System.out.println("Searchable - 무음 해제");
+            System.out.println("[Searchable] : 무음 해제");
         }
     }
 }
