@@ -32,6 +32,7 @@ public interface RemoteControl extends Machine, ModuleTV { // 인터페이스 �
     default void setMute(boolean mute) { 
         if (mute) {
             System.out.println("무음 처리");
+            privateMethod(); // private 메소드 사용
         }
         else {
             System.out.println("무음 해제");
@@ -43,7 +44,20 @@ public interface RemoteControl extends Machine, ModuleTV { // 인터페이스 �
     // public 특성을 갖기 때문에 public 을 생략하더라도 자동적으로 컴파일 과정에서 붙게 됨
     static void changeBattery() {
         System.out.println("건전지 교환");
+        privateStaticMethod(); // private static 메소드 사용
     }
+    
+    // [Private 메소드] : 자바 9
+    // 인터페이스 내에서만 사용 가능한 메소드
+    // 디폴트 메소드나 정적 메소드에 사용하기 위해 작성된 메소드
+    // 인터페이스를 구현하는 클래스에서 재정의하거나 사용할 수 없고 디폴트나 정적 메소드를 통해서만 사용 가능함
+    private void privateMethod() { // 디폴트 메소드에서 사용하기 위해 작성
+        System.out.println("private method");
+    }
+    private static void privateStaticMethod() { // 정적 메소드에서 사용하기 위해 작성
+        System.out.println("private static method");
+    }
+
 }
 
 interface Machine {
