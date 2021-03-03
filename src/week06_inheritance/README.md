@@ -40,6 +40,20 @@
 - public static final double PI = 3.14; 처럼 final 로 설정해서 값을 변경할 수 없게 하고 static 으로 메모리 하나를 배정한 뒤 공용으로 사용할 수 있게 함
 - 오직 한 번만 값을 할당할 수 있음
 
+```
+    // 프로젝트 구현 시 여러 파일에서 공유해야 하는 상수 값은 하나의 파일에 선언하여 사용하면 편리함
+    public class Define {
+        public static final int MIN = 1;
+        public static final int MAX = 999;
+    }
+    
+    public class DefineTest {
+        public static void main(String[] args) {
+            System.out.println("최저 : " + Define.MIN + " 최대 : " + Define.MAX);
+        }
+    }
+```
+
 #### 2. final 메소드 (템플릿 메소드)
 - 하위 클래스에서 재정의 (overriding) 할 수 없음
 
