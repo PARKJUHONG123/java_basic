@@ -33,6 +33,34 @@
         }
     }
 ```
+### 템플릿 메소드
+
+```
+    public abstract class Car {
+        public abstract void drive();
+        public abstract void stop();
+        
+        public void turnOn() {
+            System.out.println("시동 ON");
+        }
+        
+        public void turnOff() {
+            System.out.println("시동 OFF");
+        }
+        
+        // 템플릿 메소드
+        // 하위 클래스에서 재정의할 수 없는 메소드
+        // 순서가 변경되지 않거나, 내부 내옹이 변경되지 않을 메소드
+        final public void run() { // 다음과 같이 final 로 수정이 되지 않도록 함 
+            turnOn();
+            drive();
+            stop();
+            turnOff();
+        }    
+    }
+    
+```
+
 
 ### Object 클래스
     - 모든 클래스의 직/간접적 슈퍼클래스
