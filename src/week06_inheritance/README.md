@@ -308,3 +308,54 @@
 - 힙 메모리 내 인스턴스로 공간을 차지하게 됨
 
 ### Class 클래스
+- .java 파일을 컴파일을 하고 나면 .class 파일을 생성됨
+- class 파일에는 객체의 정보 (맴버변수, 메소드, 생성자 등) 가 포함되어 있음
+- Class 클래스는 컴파일된 class 파일에서 객체의 정보를 가져올 수 있음
+- Class 로드, Instance 생성 등 메소드 존재
+- 일반적으로는 직접 다룰 기회는 없음
+- Reflection 프로그래밍, 로컬에 모듈이 없는 경우, 동적 로딩할 때 주로 사용됨
+
+- Class 클래스 가져오기
+    1. String str = new String(); Class c = str.getClass(); // Object 의 메소드를 활용해서 가져옴
+    2. Class c = String.Class; // 컴파일된 상태가 있을 때
+    3. Class c = Class.forName("java.lang.String"); // 정적 로딩
+
+- newInstance() 메소드
+    - Class 클래스의 메소드
+    - new 키워드를 사용하지 않고 객체를 생성함
+
+- 동적 로딩 (정적 로딩 = Compile 때 Binding 이 됨)
+    - Runtime 때 Binding 이 됨 (해당 Statement 를 실행할 때)
+    - Class.forName 의 파라미터를 변경해서 Binding 하고 싶은 클래스를 로딩함
+    - 해당 클래스가 로컬에 있으면 불러옴
+    - 주로 자바의 JDBC 사용할 때 많이 쓰임
+    - JDBC 관련 DB 라이브러리들을 모두 정적 링크해서 컴파일할 수 없음 (너무 많음)
+    - 컴파일 타임이 아니라 그때그때 상황에 맞게 원하는 라이브러리, 클래스를 매칭할 수 있음
+    - 단점 : 오타가 나게 되면 classNotFoundException 이 일어나서 프로그램이 죽을 수 있음
+    - [예시]
+    ```
+    public static void main(String[] args) {        
+        // 로컬에 클래스가 있는 경우
+        Person person = new Person("James");
+        System.out.println(person); // James
+        
+        // 로컬에 클래스가 없는 경우
+        Class PC = Class.forName("myPackage.Person");
+
+        /* 파라미터가 없는 생성자 호출 시 */
+        Person foreigner = (Person)PC.newInstance();
+        System.out.println(foreigner);
+        
+        /* 파라미터가 있는 생성자 호출 시 */
+        Class[] parameterTypes = {String.class}; 
+        Constructor cons = PC.getConstructor(parameterTypes); // 생성자 읽어오기
+        Object[] initArgs = {"Park"}; // 파라미터 갯수만큼 넣으면 됨
+        Person Korean = (Person)cons.newInstance(initArgs);
+        Systemout.println(Korean);
+    }
+    ```
+
+- reflection 프로그래밍
+    - Class 클래스로부터 객체의 정보를 가져와 프로그래밍 하는 방식
+    - 로컬에 객체가 없고 자료형을 알 수 없는 객체의 정보를 가져오는 방식
+    - java.lang.relfect 패키지에 있는 클래스를 활용함
