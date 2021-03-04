@@ -102,6 +102,43 @@
     - 다른 객체와 비교해서 다른 객체와 이 객체가 같은지를 나타내는 동등성 비교를 수행
     - 내부 구현은 == 동일성 비교여서 오버라이딩을 해주지 않으면 기본적으로 동일성 비교를 수행
     - 이 메서드를 오버라이딩 할 때에는 아래에 설명할 hashCode() 메서드 또한 오버라이딩 해야함
+    - [쉬운 설명]
+        - 물리적으로 다른 메모리에 위치한 객체라도 논리적으로 동일함을 구현하기 위해 사용하는 메소드
+        - 물리적 동일함 : 같은 주소를 가지는 객체
+        - 논리적 동일함 : 같은 학번의 학생, 같은 주문 번호의 주문
+    - [예시]
+    ```
+    Student A = new Student(100, "P");
+    Student B = A;
+    Student C = new Student(100, "P");
+    // A와 B는 물리적 동일하지만 C는 논리적 동일함
+
+    System.out.println(A == C); // false = 객체의 주소값을 비교함
+    System.out.println(A.equals(C)); // false (재정의 하기 전까지는 == 연산자와 같음)
+    
+    class Student {
+        int studentNum;
+        String studentName;
+
+        public Student(int studentNum, String studentName) {
+            this.studentNum = studentNum;
+            this.studentName = studentName;
+        }
+    
+        @Override
+        public boolean equals(Object obj) { // equals 재정의 추가
+            if (obj instanceof Student) {
+                Student std = (Student) obj;
+                return (this.studentNum == std.studentNum);
+            }
+            return false;
+        }
+    }
+    
+    System.out.println(A == C); // false = 객체의 주소값을 비교함
+    System.out.println(A.equals(C)); // true (재정의해서 학번을 비교하기 때문에)
+    ```
+
 - protected void finalize() throws Throwable
     - 가비지 컬렉터가 객체에 대한 참조가 없는 경우 호출 
     - 실행될지 불확실하기 때문에 크리티컬한 코드를 여기에 두면 X
