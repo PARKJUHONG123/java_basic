@@ -98,6 +98,7 @@
 - protected Object clone() throws CloneNotSupportedException
     - 객체의 복사본을 만들고 반환
     - 복제 불가능한 경우 예외 발생
+
 - public boolean equals(Object obj)
     - 다른 객체와 비교해서 다른 객체와 이 객체가 같은지를 나타내는 동등성 비교를 수행
     - 내부 구현은 == 동일성 비교여서 오버라이딩을 해주지 않으면 기본적으로 동일성 비교를 수행
@@ -142,11 +143,57 @@
 - protected void finalize() throws Throwable
     - 가비지 컬렉터가 객체에 대한 참조가 없는 경우 호출 
     - 실행될지 불확실하기 때문에 크리티컬한 코드를 여기에 두면 X
+
 - public final Class getClass()
     - 객체의 런타임 클래스를 호출
+
 - public int hashCode()
     - 객체의 해시코드 값을 반환
     - 두 객체가 같으면 해시코드도 같아야하기 때문에 equals()를 오버라이딩 할 때, hashCode() 또한 오버라이딩 해야함
+    - [쉬운 설명]
+        - 객체가 같다는 말은 같은 해시코드 값을 갖는다는 말과 같음
+        - 해시코드는 JVM이 인스턴스가 생성됐을 때 메모리 주소를 할당하는데, 해당 메모리 주소값을 해시코드라고 함
+        - hashcode() 메소드는 인스턴스가 저장된 가상머신의 주소를 10진수로 반환
+        - 두 개의 서로 다른 메모리에 위치한 인스턴스가 동일하다는 것은 2가지 조건이 충족되어야 함
+            - 논리적으로 동일 (equals() 의 반환값이 true)
+            - 동일한 hashCode 값을 가짐 (hashCode() 의 반환 값이 동일함)
+        - 실제 메모리 값은 다르지만, hashCode() 를 overriding 해서 논리적으로 같음을 나타내야 함
+    - [예시]
+    ```
+    class Student {
+        int studentNum;
+        String studentName;
+
+        public Student(int studentNum, String studentName) {
+            this.studentNum = studentNum;
+            this.studentName = studentName;
+        }
+    
+        @Override
+        public boolean equals(Object obj) {
+            if (obj instanceof Student) {
+                Student std = (Student) obj;
+                return (this.studentNum == std.studentNum);
+            }
+            return false;
+        }
+        
+        @Override
+        public int hashCode() { // hashCode 재정의 추가
+            return studentNum;
+        }
+    }
+    
+    Student A = new Student(100, "P");
+    Student B = A;
+    Student C = new Student(100, "P");
+    
+    System.out.println(A.equals(C)); // true
+    System.out.println(A.hashCode() == C.hashCode()); // true
+    System.out.println(System.identityHashCode(A)); // 실제 메모리 주소값 (HASHCODE 형식으로)
+    
+    ```
+
 - public String toString()
     - 객체의 문자열 형태를 반환 
     - String 의 경우 java.lang 패키지에 존재하기 때문에 String str = new String("문자"); 에서 System.out.println(str); 을 하게 되면 "문자" 가 출력되는데 이는 str.toString() 과 같음
