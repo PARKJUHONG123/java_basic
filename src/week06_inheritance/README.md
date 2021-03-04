@@ -89,9 +89,11 @@
 
 
 ### Object 클래스
-    - 모든 클래스의 직/간접적 슈퍼클래스
-    - java.lang 패키지에 존재
+    - 모든 클래스의 직/간접적 슈퍼클래스 (최상위 클래스)
+    - java.lang 패키지에 존재 (java.lang.Object 클래스) (jdk/library/src.zip/base/java/lang 에 위치함 | 컴파일러가 자동으로 import 해서 사용함)
     - 매개변수 없는 생성자
+    - 모든 클래스는 Object 클래스에서 상속받고, Object 클래스의 메소드를 사용할 수 있으며, Object 클래스의 일부 메소드 (= final로 정의된 메소드 제외) 를 재정의하여 사용할 수 있음
+    - 컴파일러가 자동으로 클래스 선언 시 뒤에 (extends Object) 를 붙였다고 생각하면 됨
 
 - protected Object clone() throws CloneNotSupportedException
     - 객체의 복사본을 만들고 반환
@@ -110,6 +112,8 @@
     - 두 객체가 같으면 해시코드도 같아야하기 때문에 equals()를 오버라이딩 할 때, hashCode() 또한 오버라이딩 해야함
 - public String toString()
     - 객체의 문자열 형태를 반환 
+    - String 의 경우 java.lang 패키지에 존재하기 때문에 String str = new String("문자"); 에서 System.out.println(str); 을 하게 되면 "문자" 가 출력되는데 이는 str.toString() 과 같음
+    - 개별적으로 생성한 클래스의 경우인 Book book = new Book("책"); 에서 System.out.println(book); 을 하게 되면 객체의 주소값이 보이게 됨
     - 기본적으로는 거의 의미 없는 정보를 보여주기에 이 메서드의 오버라이딩을 통해 객체가 유용한 정보를 반환하도록 정의해야 함 
 
 - 오버라이딩 할 수 없도록 final 로 선언된 notify(), notifyAll(), wait() 메서드는 독립적으로 실행되는 스레드간의 동기화에 사용됨
