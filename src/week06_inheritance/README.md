@@ -9,6 +9,9 @@
 - 추상 클래스
 - final 키워드
 - Object 클래스
+- String 클래스
+- Wrapper 
+- Class 클래스
 
 ### super 키워드
 - super() 로 호출되는 생성자는 상위 클래스의 기본 생성자
@@ -230,3 +233,63 @@
 
 - 오버라이딩 할 수 없도록 final 로 선언된 notify(), notifyAll(), wait() 메서드는 독립적으로 실행되는 스레드간의 동기화에 사용됨
 
+### String 클래스
+- String 뿐만 아니라 Double, Integer 등 모두 인스턴스를 생성할 수 있고, 상수풀에 있는 메모리를 가리킬 수 있음
+- [예시]
+    ```
+    String str1 = new String("abc"); // 인스턴스로 생성됨 (힙 메모리)
+    String str2 = "abc"; // 상수풀에 있는 문자열을 가리킴 (리터럴들이 모여 있는 상수풀)
+    String str3 = "abc";
+
+    System.out.println(str1 == str2); // false (메모리의 위치가 다르기 때문에)
+    System.out.println(str1.equals(str2)); // true (String 은 java.lang 패키지에 속해있고 내부적으로 equals 를 재정의했기 때문에 내용을 비교함)
+    System.out.println(str2 == str3); // true (상수풀 내 동일한 주소를 가리키기 때문)
+    ```
+
+- String 은 immutable = 한번 선언되거나 생성된 문자열을 변경할 수 없음
+- String 클래스의 concat() 메소드 혹은 "+" 를 이용하여 String 을 연결하는 경우, 문자열이 새롭게 생성됨 (새롭게 메모리를 할당해서 생성함)
+- ctr1 + 클릭을 해서 String 을 검색하면, String 클래스 내 value 가 final 로 선언되어 있음
+- [예시]
+    ```
+    String java = new String("java");
+    String android = new String("android");
+    String oldMem = System.identityHashCode(java);    
+
+    java = java.concat(android);
+    String newMem = System.identityHashCode(java);
+    System.out.println(oldMem == newMem); // false
+    ```
+
+- String 을 계속 이어서 쓸 일이 있으면 StringBuilder 와 StringBuffer 를 사용하는 것이 좋음
+    #### StringBuilder 와 StringBuffer
+    - 가변적인 char[] 배열을 맴버변수로 가지고 있는 클래스
+    - 문자열을 변경하거나 연결하는 경우 사용하면 편리함
+    - toString() 메소드로 String 반환
+    - [예시]
+    ```
+    String java = new String("java");
+    StringBuilder buffer = new StringBuilder(java);
+    
+    buffer.append("android"); // javaandroid
+    buffer.delete(0, 2); // vaandroid
+    buffer.deleteCharAt(0); // aandroid
+    buffer.insert(1, "x"); // axandroid
+    buffer.reverse(); // diordnaxa
+    buffer.setCharAt(4, 'i'); // diorinaxa
+    buffer.setLength(10); // diorinaxa(띄어쓰기)
+    buffer.setLength(4); // dior
+    
+    java = buffer.toString();
+    
+    ```
+
+    #### StringBuilder
+    - 멀티쓰레드 프로그래밍에서 동기화가 되지 않음
+    - 단일쓰레드 프로그래밍에서 사용하는 것이 좋음
+    
+    #### StringBuffer
+    - 멀티쓰레드 프로그래밍에서 동기화 (Synchronization) 이 보장됨
+    
+### Wrapper 
+
+### Class 클래스
