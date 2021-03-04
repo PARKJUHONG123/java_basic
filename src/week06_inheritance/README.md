@@ -98,6 +98,32 @@
 - protected Object clone() throws CloneNotSupportedException
     - 객체의 복사본을 만들고 반환
     - 복제 불가능한 경우 예외 발생
+    - [쉬운 설명]
+        - 기본 틀 (Prototype) 으로부터 같은 속성 값을 가진 객체의 복사본을 생성할 수 있음
+        - 객체지향 프로그래밍의 정보은닉에 위배되는 가능성이 있으므로 복제할 객체는 cloneable 인터페이스를 명시해야 함
+    - [예시]
+    ```
+    class Book (implements Clonable) {
+        String name, author;
+        
+        Book(String name, String author) {
+            this.name = name;
+            this.author = author;
+        }
+        
+        protected Object clone() throws CloneNotSupportedException {
+            return super.clone();
+        }    
+    }
+    
+    public class BookTest {
+        public static void main(String[] args) {
+            Book book = new Book("A", "B");
+            Book copyBook = (Book)book.clone(); // Exception 발생함 = Book 이라는 클래스는 Clone 이 지원되지 않음 -> implements Clonable을 복제할 객체의 클래스에 명시해줘야 함
+        }
+    }    
+    ```
+
 
 - public boolean equals(Object obj)
     - 다른 객체와 비교해서 다른 객체와 이 객체가 같은지를 나타내는 동등성 비교를 수행
