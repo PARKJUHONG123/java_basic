@@ -290,6 +290,21 @@
     #### StringBuffer
     - 멀티쓰레드 프로그래밍에서 동기화 (Synchronization) 이 보장됨
     
-### Wrapper 
+### Wrapper 클래스
+|기본형|Wrapper 클래스|
+|:------:|:---:|
+|boolean|Boolean|
+|byte|Byte|
+|char|Character|
+|short|Short|
+|int|Integer|
+|long|Long|
+|float|Float|
+|double|Double|
+
+- 기본형을 감싼 클래스
+- toString, hashCode, equals 등이 override 되어 있고, 앵간한 기능들이 추가되어 있음
+- 자바 1.5 이전에는 int + Integer 를 위해서는 부가 작업이 필요했지만, 지금은 형변환이 필요로 하지 않음 (autoboxing 과 unboxing 이 자동으로 제공)
+- 힙 메모리 내 인스턴스로 공간을 차지하게 됨
 
 ### Class 클래스
