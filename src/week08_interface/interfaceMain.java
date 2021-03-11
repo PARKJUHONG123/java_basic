@@ -79,15 +79,16 @@ class multiTV implements RemoteControl, Searchable {
         System.out.println("[다중 인터페이스 구현 클래스] : setVolume");
     }
 
+
     @Override
     public void search(String url) {
         System.out.println("[다중 인터페이스 구현 클래스] : search");
     }
-    
+
     @Override
-    default void setMute(boolean mute) { 
-        // Searchable.super.setMute(mute);
-        // RemoteControl.super.setMute(mute);
+    public void setMute(boolean mute) {
+        Searchable.super.setMute(mute);
+        RemoteControl.super.setMute(mute);
         
         // 각 인터페이스에 default method 가 중복될 경우 위와 같이 특정 인터페이스를 지정해서 구현된 default method 를 실행할 수 있고
         // 또는 아래와 같이 overriding 이 가능함
@@ -100,6 +101,7 @@ class multiTV implements RemoteControl, Searchable {
             System.out.println("[다중 인터페이스 구현 클래스] : 무음 해제");
         }
     }
+
 }
 
 class extendsImplementTV extends abstractTV implements Searchable {
@@ -111,6 +113,11 @@ class extendsImplementTV extends abstractTV implements Searchable {
     @Override
     public void setVolume(int volume) {
         System.out.println("[extendsImplement] : setVolume");
+    }
+
+    @Override
+    public void setMute(boolean mute) {
+        Searchable.super.setMute(mute);
     }
 
     @Override
