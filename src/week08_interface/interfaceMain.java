@@ -86,7 +86,7 @@ class multiTV implements RemoteControl, Searchable {
     }
 
     @Override
-    public void setMute(boolean mute) {
+    public void setMute(boolean mute) { // default 로 override 받을 수 없음
         Searchable.super.setMute(mute);
         RemoteControl.super.setMute(mute);
         
@@ -116,8 +116,8 @@ class extendsImplementTV extends abstractTV implements Searchable {
     }
 
     @Override
-    public void setMute(boolean mute) {
-        Searchable.super.setMute(mute);
+    public void setMute(boolean mute) { // default 로 override 할 수 없음
+        Searchable.super.setMute(mute); // 다음과 같이 직접 호출하는 방식으로 default method 를 호출해야 함
     }
 
     @Override

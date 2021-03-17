@@ -20,6 +20,6 @@ public class GenericPrinterTest {
 		// 아예 제네릭 자료형을 선언하지 않고도 사용할 수도 있음 (꿘장되지 않음)
 		// T 값에는 Object 클래스가 들어감
 		GenericPrinter rawTypePrinter = new GenericPrinter(); 
-		
+
 	}
 }
