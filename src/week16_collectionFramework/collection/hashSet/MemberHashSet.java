@@ -1,12 +1,12 @@
-package week16_collectionFramework.CollectionInterface;
+package week16_collectionFramework.collection.hashSet;
 
 import java.util.HashSet;
 import java.util.Iterator;
 
-public class HashSetInterface<T> {
+public class MemberHashSet<T> {
     HashSet<T> hashset;
-    public HashSetInterface() {
-        hashset = new HashSet<>();
+    public MemberHashSet() {
+        hashset = new HashSet<T>();
     }
 
     public void addElement(T t) {
@@ -17,7 +17,7 @@ public class HashSetInterface<T> {
         Iterator<T> hashsetIt = hashset.iterator();
         while(hashsetIt.hasNext()) {
             T t = hashsetIt.next();
-            if (t == target) {
+            if (((Member) t).getId() == ((Member) target).getId()) {
                 hashset.remove(t);
                 return true;
             }
@@ -32,11 +32,13 @@ public class HashSetInterface<T> {
             T t = hashsetIt.next();
             System.out.println(t);
         }    
+        System.out.println();
     }
 
     public void showFor() {
         for (T t : hashset) {
             System.out.println(t);
         }
+        System.out.println();
     }
 }
