@@ -3,21 +3,25 @@ package week15_lambda.innerClass;
 public class InnerTest {
     public static void main (String[] args) {
         // [Instance Inner Class]
+        // 외부 클래스를 먼저 만든 후 내부 클래스 생성
         OutClass outClass = new OutClass();
         outClass.useInTest();
         OutClass.InClass outInClass = outClass.new InClass(); 
         outInClass.inTest();
 
-        // [Static Inner Class]        
+        // [Static Inner Class] 
+        // 외부 클래스와 무관하게 생성
         OutClass.InStaticClass sOutInClass = new OutClass.InStaticClass();
         sOutInClass.inTest();
         OutClass.InStaticClass.sInTest();
 
         // [Local Inner Class]
+        // 메소드를 호출할 때 생성
         Runnable runnable = outClass.getRunnable(50);
         runnable.run(); // 언제든지 호출할 수 있음
 
         // [Anonymous Inner Class]
+        // 메소드를 호출할 때 생성되거나, 인터페이스 타입 변수에 대입할 때 new 예약어를 사용하여 생성
         Runnable anonymousRunnable = outClass.getAnonymousRunnable(50);
         anonymousRunnable.run(); 
     }
