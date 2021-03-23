@@ -83,8 +83,7 @@ class OutClass {
             }
     
             @Override
-            public void run() {
-                
+            public void run() {                
                 // 메소드가 호출되서 끝날 때까지 지역변수와 매개변수는 유효함
                 // inRunnable 객체가 반환하게 되면 (= getRunnable 메소드가 끝나게 되면), run() 메소드를 언제든지 호출할 수 있게 됨
                 // 그럼 getRunnable 의 지역변수와 매개변수가 유효하지 않은 상태에서 run() 메소드를 통해 지역변수와 매개변수를 변경하게 되면 에러가 발생하게 됨
