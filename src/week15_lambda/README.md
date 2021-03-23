@@ -173,7 +173,7 @@ BiPredicate<T, U>|	T, U|	boolean|	test|	두 가지 인자를 받고 boolean 값�
 
 ## 스트림
 - I/O 의 스트림과는 다름
-- 자료의 대상과 관계없이 동일한 연산을 수행할 수 있는 기능 (자료의 추상화)
+- 자료의 대상과 관계없이 동일한 연산을 수행할 수 있는 기능 (자료의 )
 - 배열, 컬렉션에 동일한 연산이 수행되어 일관성 있는 처리 가능
 - 한번 생성하고 사용한 스트림은 재사용할 수 없음
 - 스트림 연산은 기존 자료를 변경하지 않음
@@ -202,8 +202,77 @@ BiPredicate<T, U>|	T, U|	boolean|	test|	두 가지 인자를 받고 boolean 값�
   - 첫 번째 요소는 초기값임
   - 두 번째 요소로 전달되는 람다식에 따라 다양한 기능을 수행함
 
+
+
 ## 클로저
 - 외부 범위의 함수를 함수 내부로 바인딩하는 기술
 - 자신을 둘러싼 Context 내의 변수에 접근할 수 있음
 - 자신을 둘러싼 외부 함수가 종료되더라도 이 값이 유지가 됨
 - 함수에서 사용하는 값들은 클로저가 생성되는 시점에 정의되고 함수 자체가 복사되어 따로 존재하기 때문
+- 익명 클래스에 함수 캡쳐본을 넘겨줌 (마치 스냅샷처럼)
+
+### Variable Capture
+- 컴파일러는 이 필요한 정보를 복사해서 넘겨줌
+
+### 람다와 클로저의 공통점과 차이점
+- 결론
+  - 람다는 클로저를 포함하는 더 큰 개념
+  - 람다가 자신의 범위 밖에 있는 변수를 사용하면 람다인 동시에 클로저라고 할 수 있음
+
+- 공통점
+  - 모두 익명의 특정 기능 블록
+
+- 차이점
+  - Lambda
+    - (server) -> server.isRunning()
+    - 자신이 받는 매개변수만 참조함
+    - 외부에 의존성이 없는 Static Method 와 비슷함
+    - 예시
+      ```
+      static <T> void waitFor(T input, Predicate<T> predicate) throws InterruptedException {
+        while (!predicate.test(input)) {
+          Thread.sleep(250);
+        }
+      }
+      ```
+      ```
+      waitFor(new HttpServer(), (server) -> !server.isRunning()); // 매개변수 참조
+      waitFor(new HttpServer(), HttpServer::isRunning); // 메소드 참조
+      ```
+
+
+  - Closure
+    - () -> server.isRunning() // 외부의 server 라는 변수를 참조
+    - 외부 변수를 참조함
+    - 외부에 의존성이 있는, 외부 변수를 참조하는 익명 클래스와 비슷함
+    - 예시
+      ```
+      static <T> void waitFor(Condition condition) throws InterruptedException {
+        while (!condition.isSatisfied()) {
+          Thread.sleep(250);
+        }
+      }
+
+      @FunctionalInterface
+      interface Condition {
+        boolean isSatisfied();
+      }
+      ```
+      ```
+      void closure() throws InterruptedException {
+        HttpServer server = new HttpServer(); // 외부 변수
+        waitFor(() -> !server.isRunning()); // 외부 변수 참조
+      }
+      ```
+      ```
+      // 클로저는 외부 변수를 참조하는 익명 클래스와 같은 역할을 함
+      void anonymousClassClosure() throws InterruptedException {
+        HttpServer server = new HttpServer(); // 외부 변수
+        waitFor(new Condition() {
+          @Override
+          public boolean isSatisfied() {
+            return !server.isRunning(); // 외부 변수 참조
+          }
+        });
+      }
+      ```
