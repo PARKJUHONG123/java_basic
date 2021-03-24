@@ -1,4 +1,4 @@
-package week13_IO;
+package week13_IO.SystemConsole;
 
 import java.io.IOException;
 import java.io.InputStreamReader;

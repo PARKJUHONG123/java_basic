@@ -71,3 +71,39 @@
     - char[] readPassword() : 사용자에게 문자열을 보여주지 않고 읽음
     - Reader reader() : Reader 클래스 반환
     - PrintWriter writer() : PrintWriter 클래스 반환
+
+
+## 바이트 단위 스트림
+- InputStream : 바이트 단위 입력 스트림 최상위 클래스
+- OutputStream : 바이트 단위 출력 스트림 최상위 클래스
+- 추상 메소드를 포함한 추상 클래스로 하위 클래스가 구현하여 사용함
+    - 주요 입력 하위클래스
+        - FileInputStream : 파일에서 바이트 단위로 자료를 읽음
+        - ByteArrayInputStream : Byte 배열 메모리에서 바이트 단위로 자료 읽음
+        - FilterInputStream : 기반 스트림에서 자료를 읽을 때 추가 기능을 제공하는 보조 스트림의 상위 클래스
+    - 주요 출력 하위클래스
+        - FileOutputStream : 파일에서 바이트 단위로 자료를 씀
+        - ByteArrayOutputStream : Byte 배열 메모리에서 바이트 단위로 자료 씀
+        - FilterOutputStream : 기반 스트림에서 자료를 쓸 때 추가 기능을 제공하는 보조 스트림의 상위 클래스
+
+- FileInputStream / FileOutputStream
+    - 파일에 한 바이트씩 자료를 읽고 쓰는데 사용
+    - 입력 스트림은 파일이 없는 경우 예외 발생
+    - 출력 스트림은 파일이 없는 경우 파일 생성하여 출력
+
+## 문자 단위 스트림
+- Reader : 문자 단위로 읽는 최상위 스트림
+- Writer : 문자 단위로 쓰는 최상위 스트림
+- 추상 메소드를 포함한 추상 클래스로 하위 클래스가 구현하여 사용함
+    - 주요 입력 하위클래스
+        - FileReader : 파일에서 문자 단위로 읽는 스트림 클래스
+        - InputStreamReader : 바이트 단위로 읽은 자료를 문자로 변환해주는 보조 스트림 클래스
+        - BufferedReader : 문자로 읽을 때 배열을 제공하며 한꺼번에 읽을 수 있는 기능을 제공하는 보조 스트림
+    - 주요 출력 하위클래스
+        - FileWriter : 파일에서 문자 단위로 출력하는 스트림 클래스
+        - InputStreamWriter : 바이트 단위로 출력한 자료를 문자로 변환해주는 보조 스트림 클래스
+        - BufferedWriter : 문자로 쓸 때 배열을 제공하며 한꺼번에 쓸 수 있는 기능을 제공하는 보조 스트림
+
+- FileReader / FileWriter
+    - 파일에 문자를 읽고 쓸때 가장 많이 사용하는 클래스
+    - 문자의 인코딩 방식을 지정할 수 있음
