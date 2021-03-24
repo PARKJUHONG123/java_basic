@@ -45,13 +45,15 @@ public class exceptionMain {
             System.out.println(message);
             e.printStackTrace(); // 예외 발생 코드 추적 후 콘솔에 출력
         } 
-        catch (Exception e) {
+        catch (Exception e) { // 모든 Exception 의 최상위 클래스이기 때문에 맨 마지막에 위치
             System.out.println("[Exception] : 상위 Exception 예외 처리 구문");
             return;
         }
         finally { // 예외 발생 여부와 상관없이 항상 실행될 내용 + 옵션으로 생략이 가능함 + try 블록과 catch 블록에서 return 문을 사용하더라도 실행됨
+            // 주로 리소스를 정리하는 동작을 작성함
             System.out.println("[finally] : try 블록과 catch 블록에 return 문이 있더라도 실행됨");
         }
+        System.out.println("[Exception] 의 경우는 catch(Exception e) 의 return 구문에 의해 프로그램이 종료되서 출력되지 않음");
     }
 
     public static void makeNullException() throws NullPointerException {
