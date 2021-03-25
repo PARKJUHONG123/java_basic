@@ -107,3 +107,18 @@
 - FileReader / FileWriter
     - 파일에 문자를 읽고 쓸때 가장 많이 사용하는 클래스
     - 문자의 인코딩 방식을 지정할 수 있음
+
+## 보조 스트림
+- 실제 읽고 쓰는 스트림이 아닌 보조적인 기능을 추가하는 스트림
+- FilterInputStream / FilterOutputStream
+    - 보조 스트림의 상위 클래스
+    - FilterInputStream : 생성자의 매개변수로 InputStream 을 받음
+    - FilterOutputStream : 생성자의 매개변수로 OutputStream 을 받음
+- Decorator Pattern
+    - 기반 스트림 (바이트 단위 파일 입력 스트림)
+    - 보조 스트림 (+ 문자로 변환 기능 추가)
+    - 보조 스트림 (+ 버퍼링 기능 추가)
+
+- 예시
+    - Buffered Stream : 내부에 8192 바이트 배열을 가지고 있음 (읽거나 쓸 때 속도가 빠름)
+    - DataInputStream / DataOutputStream : 자료가 저장된 상태 그대로의 자료형을 유지하며 읽거나 쓰는 기능을 제공하는 스트림
