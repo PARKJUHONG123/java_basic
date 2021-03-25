@@ -122,3 +122,21 @@
 - 예시
     - Buffered Stream : 내부에 8192 바이트 배열을 가지고 있음 (읽거나 쓸 때 속도가 빠름)
     - DataInputStream / DataOutputStream : 자료가 저장된 상태 그대로의 자료형을 유지하며 읽거나 쓰는 기능을 제공하는 스트림
+
+## 직렬화 (Serialization)
+- 인스턴스의 상태를 그대로 저장하거나 네트워크로 전송하고 이를 다시 복원 (Deserialization) 하는 방식
+- ObjectInputStream / ObjectOutputStream 사용
+- 보조 스트림
+
+### Serializable Interface
+- 직렬화는 인스턴스의 내용이 외부 (파일, 네트워크) 로 유출되는 것
+- 프로그래머가 객체의 직렬화 가능 여부를 명시함
+- 구현 코드가 없는 mark interface
+```
+class Person implements Serializable { // 직렬화하겠다는 의도를 표시
+    ...
+    String name;
+    String job;
+    ...
+}
+```
